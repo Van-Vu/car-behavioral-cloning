@@ -133,20 +133,20 @@ To capture good driving behavior
 | ------------- |:-------------:| -----:|
 | ![alt text][image10]      | ![alt text][image11] | ![alt text][image12] |
 
-I also flipped images and angles then randomly change it brightness thinking that this would helps the model generalize better
+- I also flipped images and angles then randomly change it brightness thinking that this would helps the model generalize better (line 43 - 54)
 
-The total data point is **10908**. 
+- The total data point is **10908**. 
 
-I then sklearn.utils.shuffle the whole dataset and put 20% of the data into a validation set. (line 41)
+- sklearn.utils.shuffle the whole dataset and put 20% of the data into a validation set. (line 41)
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting
+- Used this training data for training the model. The validation set helped determine if the model was over or under fitting
 
-I tried 5, 10, 20 epochs, applying from Grayscale to original image size (160, 320,3) to resize image to (64,64,3) ... changing the Steps_per_epoch: len(X_train) / 4000 / 3000
+- I tried 5, 10, 20 epochs, applying from Grayscale to original image size (160, 320,3) to resize image to (64,64,3) ... changing the Steps_per_epoch: len(X_train) / 4000 / 3000
 
 ![alt text][image14] 
 
-The ideal outcome for my model is:
-- Epochs= 20
+**The ideal outcome for my model is:**
+- Epochs= 20 (training time 5 mins per epoch)
 - Iamge size= 64,64,3
 - Steps_per_epoch = 3000
 
