@@ -11,11 +11,11 @@
 [image7]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/left_2018_08_02_20_12_49_759.jpg "Recovery Driving"
 [image8]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/center_2018_08_02_20_12_49_759.jpg "Recovery Driving"
 [image9]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/right_2018_08_02_20_12_49_759.jpg "Recovery Driving"
-[image10]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Bridge_Recovery/right_2018_08_02_20_12_49_759.jpg "Recovery Driving"
-[image11]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Bridge_Recovery/center_2018_08_02_20_12_49_759.jpg "Recovery Driving"
-[image12]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/left_2018_08_02_20_12_49_759.jpg "Recovery Driving"
+[image10]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Bridge_Recovery/left_2018_08_04_13_09_54_220.jpg "Recovery Driving"
+[image11]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Bridge_Recovery/center_2018_08_04_13_09_54_220.jpg "Recovery Driving"
+[image12]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Bridge_Recovery/right_2018_08_04_13_09_54_220.jpg "Recovery Driving"
 [image13]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/model.jpg "model"
-[image14]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/training_attemps.jpg "model"
+[image14]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/training_attemps.jpg "training attemps"
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
 
@@ -28,6 +28,7 @@ My project includes the following files:
 * model.py containing the script to create and train the model
 * drive.py for driving the car in autonomous mode
 * model.h5 containing a trained convolution neural network 
+* video.mp4 (a video recording of my vehicle driving autonomously around the track for at least one full lap)
 * this file writeup_report.md summarizing the results
 
 #### 2. Submission includes functional code
@@ -44,22 +45,24 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of 5 convolution neural networks with 5x5, 3x3 filter sizes and depths between 24 and 64 (model.py lines 73-77). 
+- My model consists of 5 convolution neural networks with 5x5, 3x3 filter sizes and depths between 24 and 64 (model.py lines 73-77). 
 
-The model also consists of 4 fully-connected layers depths 120 to 1 (moel.py lines 79-85)
+- The model also consists of 4 fully-connected layers depths 120 to 1 (moel.py lines 79-85)
 
-The data is normalized in the model using a Keras lambda layer (code line 72). 
+- The data is normalized in the model using a Keras lambda layer (line 72). 
 
 #### 2. Attempts to reduce overfitting in the model
-Each convolution layer has L2 regularizer to fight against overfitting
-Each FC layer has L2 regulizer and dropout (rate 0.5) to fight against overfitting
-Each FC layer contains dropout layer in order to reduce overfitting (model.py lines 21). 
+- Each convolution layer has L2 regularizer to fight against overfitting (line 73 - 77)
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py code line 112-113). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+- Each FC layer has L2 regulizer and dropout (rate 0.5) to fight against overfitting (lines 79 - 85)
+
+- The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py code line 112-113). 
+
+- The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer with learning rate 0.0001 (model.py line 110).
+- The model used an adam optimizer with learning rate 0.0001 (model.py line 110).
 
 #### 4. Appropriate training data
 
@@ -100,9 +103,7 @@ Finally the vehicle is able to drive autonomously around the track without leavi
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes 
 
 ![alt text][image13]
 
@@ -142,7 +143,7 @@ I used this training data for training the model. The validation set helped dete
 
 I tried 5, 10, 20 epochs, applying from Grayscale to original image size (160, 320,3) to resize image to (64,64,3) ... changing the Steps_per_epoch: len(X_train) / 4000 / 3000
 
-![alt text][image10] 
+![alt text][image14] 
 
 The ideal outcome for my model is:
 - Epochs= 20
