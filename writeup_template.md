@@ -18,13 +18,15 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Center/left_2018_08_02_20_32_49_865.jpg "Center Driving"
+[image2]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Center/center_2018_08_02_20_32_49_865.jpg "Center Driving"
+[image3]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Center/right_2018_08_02_20_32_49_865.jpg "Center Driving"
+[image4]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Center_Reverse/left_2018_08_02_19_56_39_523.jpg "Center Driving"
+[image5]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Center_Reverse/center_2018_08_02_19_56_39_523.jpg "Center Driving"
+[image6]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Center_Reverse/right_2018_08_02_19_56_39_523.jpg "Center Driving"
+[image7]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/left_2018_08_02_20_12_49_759.jpg "Recovery Driving"
+[image8]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/center_2018_08_02_20_12_49_759.jpg "Recovery Driving"
+[image9]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/right_2018_08_02_20_12_49_759.jpg "Recovery Driving"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -38,7 +40,7 @@ My project includes the following files:
 * model.py containing the script to create and train the model
 * drive.py for driving the car in autonomous mode
 * model.h5 containing a trained convolution neural network 
-* writeup_report.md or writeup_report.pdf summarizing the results
+* this file writeup_report.md summarizing the results
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
@@ -54,23 +56,30 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
+My model consists of 5 convolution neural networks with 5x5, 3x3 filter sizes and depths between 24 and 64 (model.py lines 73-77). 
 
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+The model also consists of 4 fully-connected layers depths 120 to 1 (moel.py lines 79-85)
+
+The data is normalized in the model using a Keras lambda layer (code line 72). 
 
 #### 2. Attempts to reduce overfitting in the model
+Each convolution layer has L2 regularizer to fight against overfitting
+Each FC layer has L2 regulizer and dropout (rate 0.5) to fight against overfitting
+Each FC layer contains dropout layer in order to reduce overfitting (model.py lines 21). 
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
-
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py code line 112-113). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer with learning rate 0.0001 (model.py line 110).
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
+Training data was chosen to keep the vehicle driving on the road. I used a combination of 4 datasets:
+- Center lane driving
+- center lane driving Reverse (which has more right turns)
+- Recovering from the left and right sides of the road
+- Recovering when the car drive to the bridge and drive out of the bridge
 
 For details about how I created the training data, see the next section. 
 
@@ -78,19 +87,28 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The overall strategy for deriving a model architecture was to make sure that the car can stay on the lane
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+- Load images:
++ I load the image path into X_train array, the center images takes the current streering angle, left and right images has an adjusted_angle variable to make up for the center (line 25-34)
++ In order to gauge how well the model was working, I shuffle images position then split my image and steering angle data into a training and validation set, test_size = 20%
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
+- PreProcess images:
++ Crop the top 60px and bottom 20px of all images
++ Resize image to (64,64,3) ... The reason is: when I keep the images at their original size, it takes 30 mins to train each epoch. Reducing the image size reduces paramaters which leads to faster training time
++ Radomly apply Flip & Brightness adjustment
 
-To combat the overfitting, I modified the model so that ...
+- Training:
++ Use a neural network model similar to the famous nVidia model. I thought this model might be appropriate because it's been widely used with great result
++ To combat the overfitting, I modified the model so that each layer has L2 regularizer and each FC layer has a dropout rate of 0.5
++ I use generator with batch_size = 32 to combat memory and limitation also ensure every single training step is different. This allows better generalization for the model
 
-Then I ... 
+- Run the simulator: several attemps to tweak 
++ the hyper-parameters (batch_size, learning-rate, epochs number ...)
++ training dataset (2 normal laps, 2 reveser laps, recovery)
++ image preprocess (Grayscale, Image resize, Crop different position, Random fip, Add flipped image to double the data point)
 
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+The vehicle is able to drive autonomously around the track without leaving the road.
 
 #### 2. Final Model Architecture
 
@@ -101,29 +119,33 @@ Here is a visualization of the architecture (note: visualizing the architecture 
 ![alt text][image1]
 
 #### 3. Creation of the Training Set & Training Process
+To capture good driving behavior
+- I first recorded one lap on track one using center lane driving. Here is an example image of center lane driving:
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+![alt text][image1] ![alt text][image2] ![alt text][image3]
 
-![alt text][image2]
+- I first recorded one lap on track one using center lane driving but in Reverse order, this means the samples of turning left & right are equal. Here is an example image of Reverse center lane driving:
+![alt text][image4] ![alt text][image5] ![alt text][image6]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+- After a few training & testing I realize that there's a need for Recovery drivng in different tricky section of the road:
+![alt text][image7] ![alt text][image8] ![alt text][image9]
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
+- Then more training & testing reveal that my model often fails when the car approaches the bridge and goes out of the bridge, it nearly lost control. So I record a special set for Bridge recovery
 
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
+I also flipped images and angles then randomly change it brightness thinking that this would helps the model generalize better
+For example, here is an image that has then been flipped:
 ![alt text][image6]
 ![alt text][image7]
 
-Etc ....
+The total data point is 10908. 
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+I then sklearn.utils.shuffle the whole dataset and put 20% of the data into a validation set.
 
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
+I tried 5, 10, 20 epochs, applying from Grayscale to original image size (160, 320,3) to resize image to (64,64,3) ... changing the Steps_per_epoch: len(X_train) / 4000 / 3000
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+The ideal outcome for my model is:
+- Epochs= 20
+- Iamge size= 64,64,3
+- Steps_per_epoch = 3000
