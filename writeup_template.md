@@ -86,13 +86,13 @@ The overall strategy for deriving a model architecture was to make sure that the
 
 ##### PreProcess images:
 + Crop the top 60px and bottom 20px of all images
-+ Resize image to (64,64,3) ... The reason is: when I keep the images at their original size, it takes 30 mins to train each epoch. Reducing the image size reduces paramaters which leads to faster training time
++ Resize image to **(64,64,3)** ... The reason is: when I keep the images at their original size, it takes 30 mins to train each epoch. Reducing the image size reduces paramaters which leads to faster training time
 + Radomly apply Flip & Brightness adjustment
 
 ##### Training:
 + Use a neural network model similar to the famous nVidia model. I thought this model might be appropriate because it's been widely used with great result
 + To combat the overfitting, I modified the model so that each layer has L2 regularizer and each FC layer has a dropout rate of 0.5
-+ I use generator with batch_size = 32 to combat memory and limitation also ensure every single training step is different. This allows better generalization for the model
++ I use **generator** with batch_size = 32 to combat memory and limitation also ensure every single training step is different. This allows better generalization for the model
 
 ##### Run the simulator: several attemps to tweak 
 + The hyper-parameters (batch_size, learning-rate, epochs number ...)
@@ -115,19 +115,19 @@ To capture good driving behavior
 | ------------- |:-------------:| -----:|
 | ![alt text][image1]      | ![alt text][image2] | ![alt text][image3] |
 
-- I first recorded one lap on track one using center lane driving but in Reverse order, this means the samples of turning left & right are equal. Here is an example image of Reverse center lane driving:
+- Recorded another lap on track one using center lane driving but in **Reverse** order, this means the samples of turning left & right are equal. Here is an example image of Reverse center lane driving:
 
 | Left        | Center           | Right  |
 | ------------- |:-------------:| -----:|
 | ![alt text][image4]      | ![alt text][image5] | ![alt text][image6] |
 
-- After a few training & testing I realize that there's a need for Recovery drivng in different tricky section of the road:
+- After a few training & testing I realize that there's a need for **Recovery** drivng in different tricky section of the road:
 
 | Left        | Center           | Right  |
 | ------------- |:-------------:| -----:|
 | ![alt text][image7]      | ![alt text][image8] | ![alt text][image9] |
 
-- Then more training & testing reveal that my model often fails when the car approaches the bridge and goes out of the bridge, it nearly lost control. So I record a special set for Bridge recovery
+- Then more training & testing reveal that my model often fails when the car approaches the bridge and goes out of the bridge, it nearly lost control. So I record a special set for **Bridge Recovery**
 
 | Left        | Center           | Right  |
 | ------------- |:-------------:| -----:|
@@ -137,7 +137,7 @@ I also flipped images and angles then randomly change it brightness thinking tha
 
 The total data point is **10908**. 
 
-I then sklearn.utils.shuffle the whole dataset and put 20% of the data into a validation set.
+I then sklearn.utils.shuffle the whole dataset and put 20% of the data into a validation set. (line 41)
 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting
 
