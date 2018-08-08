@@ -11,9 +11,9 @@
 [image7]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/left_2018_08_02_20_12_49_759.jpg "Recovery Driving"
 [image8]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/center_2018_08_02_20_12_49_759.jpg "Recovery Driving"
 [image9]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/right_2018_08_02_20_12_49_759.jpg "Recovery Driving"
-[image10]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Bridge_Recovery/right_2018_08_02_20_12_49_759.jpg "Recovery Driving"
-[image11]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Bridge_Recovery/center_2018_08_02_20_12_49_759.jpg "Recovery Driving"
-[image12]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Recovery/left_2018_08_02_20_12_49_759.jpg "Recovery Driving"
+[image10]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Bridge_Recovery/left_2018_08_04_13_09_54_220.jpg "Recovery Driving"
+[image11]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Bridge_Recovery/center_2018_08_04_13_09_54_220.jpg "Recovery Driving"
+[image12]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/Bridge_Recovery/right_2018_08_04_13_09_54_220.jpg "Recovery Driving"
 [image13]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/model.jpg "model"
 [image14]: https://github.com/Van-Vu/car-behavioral-cloning/blob/master/Images/training_attemps.jpg "model"
 ## Rubric Points
