@@ -142,7 +142,7 @@ I used this training data for training the model. The validation set helped dete
 
 I tried 5, 10, 20 epochs, applying from Grayscale to original image size (160, 320,3) to resize image to (64,64,3) ... changing the Steps_per_epoch: len(X_train) / 4000 / 3000
 
-![alt text][image10] 
+![alt text][image14] 
 
 The ideal outcome for my model is:
 - Epochs= 20
